@@ -1,9 +1,32 @@
 import styled from "styled-components/native";
 
+export type directionIconProps = "LEFT" | "RIGHT";
+
+type Props = {
+  type: directionIconProps;
+}
 export const Container = styled.View`
   flex: 1;
 
   background-color: ${({theme}) => theme.COLORS.GRAY_700};
 
   padding: 0 24px;
+`;
+
+export const ShowPercentage = styled.View`
+  height: 102px;
+  
+  background-color: ${({theme}) => theme.COLORS.GREEN_LIGHT};
+
+  border-radius: 8px;
+
+  align-items: center;
+`;
+
+export const ContainerIcon = styled.View<Props>`
+  height: 24px;
+  width: 100%;
+
+  ${({theme, type}) => (type === "LEFT" ? { alignItems: "flex-start"} : { alignItems: "flex-end"})}
+
 `;
