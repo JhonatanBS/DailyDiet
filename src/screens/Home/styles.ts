@@ -30,3 +30,9 @@ export const ContainerIcon = styled.View<Props>`
   ${({theme, type}) => (type === "LEFT" ? { alignItems: "flex-start"} : { alignItems: "flex-end"})}
 
 `;
+
+export const ContainerAddButton = styled.View`
+  width: 100%;
+  height: 79px;
+  margin: 35px 0;
+`;

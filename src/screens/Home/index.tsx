@@ -1,7 +1,8 @@
 import { Header } from "@components/Header";
-import { Container, ContainerIcon, ShowPercentage } from "./styles";
+import { Container, ContainerAddButton, ContainerIcon, ShowPercentage } from "./styles";
 import { HighLight } from "@components/HighLight";
 import { ButtonIcon } from "@components/ButtonIcon";
+import { ButtonAdd } from "@components/ButtonAdd";
 
 export function Home() {
   return (
@@ -18,6 +19,13 @@ export function Home() {
           size="XXL"
         />
       </ShowPercentage>
+
+      <ContainerAddButton>
+        <ButtonAdd 
+          title="Nova Refeição"
+          AddMeal={true}
+        />
+      </ContainerAddButton>
     </Container>
   )
 }
