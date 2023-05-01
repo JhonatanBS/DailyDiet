@@ -11,6 +11,7 @@ export const Percentage = styled.Text<Props>`
     font-size: ${ type === "XL" ? theme.FONT_SIZE.XL: theme.FONT_SIZE.XXL }px;
     color: ${theme.COLORS.GRAY_100};
     font-family: ${theme.FONT_FAMILY.BOLD};
+    margin-bottom: 4px;
   `}
 `;
 
@@ -19,5 +20,6 @@ export const Description = styled.Text`
     font-size: ${theme.FONT_SIZE.SM}px;
     color: ${theme.COLORS.GRAY_200};
     font-family: ${theme.FONT_FAMILY.REGULAR};
+    text-align: center;
   `}
 `;

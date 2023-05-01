@@ -11,7 +11,7 @@ export function ButtonIcon({alterIcon = true}: Props) {
     <Container >
       { alterIcon ?
         <NextIcon color={theme.COLORS.GREEN_DARK}/>:
-        <BackIcon />
+        <BackIcon color={theme.COLORS.GREEN_DARK}/>
       }
     </Container>
   )

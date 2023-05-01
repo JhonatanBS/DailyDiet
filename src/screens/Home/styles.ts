@@ -5,6 +5,7 @@ export type directionIconProps = "LEFT" | "RIGHT";
 type Props = {
   type: directionIconProps;
 }
+
 export const Container = styled.View`
   flex: 1;
 
