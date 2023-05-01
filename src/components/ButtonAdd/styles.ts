@@ -5,7 +5,7 @@ import { Plus } from "phosphor-react-native";
 export const Description = styled.Text`
   ${({theme}) => css`
     color: ${theme.COLORS.GRAY_100};
-    font-size: ${theme.FONT_SIZE.MD};
+    font-size: ${theme.FONT_SIZE.MD}px;
     font-family: ${theme.FONT_FAMILY.REGULAR};
     margin-bottom: 10px;
   `}
@@ -23,6 +23,7 @@ export const Container = styled.TouchableOpacity`
    align-items: center;
 
    flex-direction: row;
+
 `;
 
 export const Icon = styled(Plus).attrs(({theme}) => ({
@@ -35,7 +36,7 @@ export const Icon = styled(Plus).attrs(({theme}) => ({
 export const NewMeal = styled.Text`
 ${({theme}) => css`
     color: ${theme.COLORS.WHITE};
-    font-size: ${theme.FONT_SIZE.SM};
+    font-size: ${theme.FONT_SIZE.SM}px;
     font-family: ${theme.FONT_FAMILY.BOLD};
   `}
 `;

@@ -34,5 +34,10 @@ export const ContainerIcon = styled.View<Props>`
 export const ContainerAddButton = styled.View`
   width: 100%;
   height: 79px;
-  margin: 35px 0;
+  margin: 35px 0 10px;
+`;
+
+export const ContainerList = styled.View`
+  flex: 1;
+  margin-bottom: 50px;
 `;
