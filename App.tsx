@@ -9,6 +9,7 @@ import theme from '@theme/index';
 import { Home } from '@screens/Home';
 import { Statistics } from '@screens/Statistics';
 import { Feedback } from '@screens/Feedback';
+import { NewMeal } from '@screens/NewMeal';
 
 import { Loading } from '@components/Loading';
 
@@ -25,7 +26,7 @@ export default function App() {
       translucent
     />
 
-    {fontsLoaded ? <Feedback /> : <Loading />}
+    {fontsLoaded ? <NewMeal /> : <Loading />}
 
     </ThemeProvider>
   );
