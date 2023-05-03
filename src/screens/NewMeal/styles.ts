@@ -46,3 +46,12 @@ export const RegisterMeal = styled.View`
    padding: 0 24px;
 `;
 
+export const ContainerDoneOption = styled.View`
+  width: 100%;
+  height: 50px;
+
+  flex-direction: row;
+
+  justify-content: space-between;
+`;
+

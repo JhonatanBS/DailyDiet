@@ -1,10 +1,11 @@
 import styled, { css } from "styled-components/native";
 
 export const Container = styled.View`
-  height: 500px;
+  height: 425px;
   width: 100%;
 
   padding-top: 35px;
+
 `;
 
 export const TextInputName = styled.Text`

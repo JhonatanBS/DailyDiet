@@ -34,9 +34,9 @@ export const Icon = styled(Plus).attrs(({theme}) => ({
 `;
 
 export const NewMeal = styled.Text`
-${({theme}) => css`
-    color: ${theme.COLORS.WHITE};
-    font-size: ${theme.FONT_SIZE.SM}px;
-    font-family: ${theme.FONT_FAMILY.BOLD};
-  `}
+  ${({theme}) => css`
+      color: ${theme.COLORS.WHITE};
+      font-size: ${theme.FONT_SIZE.SM}px;
+      font-family: ${theme.FONT_FAMILY.BOLD};
+    `}
 `;

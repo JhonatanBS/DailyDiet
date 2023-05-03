@@ -1,7 +1,8 @@
 import { ButtonIcon } from "@components/ButtonIcon";
 
-import { Container, ContainerIcon, ContainerMeal, RegisterMeal, TextMeal } from "./styles";
+import { Container, ContainerDoneOption, ContainerIcon, ContainerMeal, RegisterMeal, TextMeal } from "./styles";
 import { Form } from "@components/Form";
+import { ButtonDone } from "@components/ButtonDone";
 
 export function NewMeal() {
   return(
@@ -23,7 +24,12 @@ export function NewMeal() {
       <RegisterMeal>
         <Form />
 
+      <ContainerDoneOption>
+       <ButtonDone title="Sim" option/>
+       <ButtonDone title="Não" option={false}/>
+      </ContainerDoneOption>
       </RegisterMeal>
+
     </Container>
   )
 }
