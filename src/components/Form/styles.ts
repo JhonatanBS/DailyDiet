@@ -5,7 +5,6 @@ export const Container = styled.View`
   width: 100%;
 
   padding-top: 35px;
-
 `;
 
 export const TextInputName = styled.Text`
@@ -28,6 +27,8 @@ export const InputName = styled.TextInput`
 
   padding: 14px;
   margin-bottom: 20px;
+
+  color: ${({theme}) => theme.COLORS.GRAY_100};
 `;
 
 export const InputDescription = styled.TextInput`
@@ -42,6 +43,7 @@ export const InputDescription = styled.TextInput`
 
   margin-bottom: 20px;
 
+  color: ${({theme}) => theme.COLORS.GRAY_100};
 `;
 
 export const TimeInput = styled.TextInput`
@@ -53,6 +55,8 @@ export const TimeInput = styled.TextInput`
   border-radius: 6px;
 
   padding: 14px;
+
+  color: ${({theme}) => theme.COLORS.GRAY_100};
 
 `;
 

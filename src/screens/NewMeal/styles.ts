@@ -55,3 +55,10 @@ export const ContainerDoneOption = styled.View`
   justify-content: space-between;
 `;
 
+export const ContainerButton = styled.View`
+  flex: 1;
+  justify-content: flex-end; 
+
+  padding: 20px 0;
+`;
+

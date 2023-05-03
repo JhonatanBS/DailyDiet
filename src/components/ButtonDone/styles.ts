@@ -1,14 +1,32 @@
 import styled, { css } from "styled-components/native";
 
+import { TouchableOpacity } from "react-native";
+
 type Props = {
-  option: boolean;
+  option?: boolean;
+  backgroundOption?: boolean;
 }
 
-export const Container = styled.TouchableOpacity`
+export const Container = styled(TouchableOpacity)<Props>`
   width: 160px;
   height: 50px;
 
   background-color: ${({theme}) => theme.COLORS.GRAY_600};
+
+  ${({theme, backgroundOption, option}) => backgroundOption && css`
+    background-color: ${option ? 
+                        theme.COLORS.GREEN_LIGHT 
+                        :
+                        (theme.COLORS.RED_LIGHT)
+                        };
+    border-width: 1px;
+
+    border-color: ${option ? 
+                        theme.COLORS.GREEN_DARK
+                        :
+                        (theme.COLORS.RED_DARK)
+                        };;
+  `}
 
   justify-content: center;
   align-items: center;
@@ -16,6 +34,7 @@ export const Container = styled.TouchableOpacity`
   flex-direction: row;
 
   border-radius: 6px;
+
 `;
 
 export const Circle = styled.View<Props>`
