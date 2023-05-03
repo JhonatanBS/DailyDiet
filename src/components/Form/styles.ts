@@ -67,10 +67,12 @@ export const ContainerInput = styled.View`
   flex-direction: row;
 
   margin-bottom: 50px;
+
+  justify-content: space-between;
 `;
 
 export const MiniContainerInput = styled.View`
-  width: 50%;
+  width: 153px;
   height: 100%;
 `;
 
