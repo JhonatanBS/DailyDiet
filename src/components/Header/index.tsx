@@ -1,14 +1,17 @@
-import { Container , Logo, Profile, ProfileImage} from "./styles";
+import { Container , Logo, Profile } from "./styles";
 
-import logo from "@assets/logo.png";
-import profile from "@assets/profile.png";
+import LogoDailyDiet from "@assets/LogoDailyDiet.svg";
+
+import { User } from "phosphor-react-native";
 
 export function Header() {
   return(
     <Container>
-      <Logo source={logo}/>
+      <Logo>
+        <LogoDailyDiet width="100%" height="100%"/>
+      </Logo>
       <Profile>
-        <ProfileImage source={profile}/>
+       <User size={32}/>
       </Profile>
     </Container>
   )

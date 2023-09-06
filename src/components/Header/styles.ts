@@ -10,7 +10,7 @@ export const Container = styled.View`
   align-items: center;
 `;
 
-export const Logo = styled.Image`
+export const Logo = styled.View`
   width: 82px;
   height: 37px;
 `;
@@ -21,10 +21,9 @@ export const Profile = styled.TouchableOpacity`
 
   border-radius: 20px;
 
-`;
+  border-color: black;
+  border-width: 2px;
 
-export const ProfileImage = styled.Image`
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
 `;

@@ -26,7 +26,7 @@ export default function App() {
       translucent
     />
 
-    {fontsLoaded ? <NewMeal /> : <Loading />}
+    {fontsLoaded ? <Home /> : <Loading />}
 
     </ThemeProvider>
   );
