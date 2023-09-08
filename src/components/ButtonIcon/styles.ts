@@ -1,12 +1,13 @@
-import styled from "styled-components/native";
+import styled , { css } from "styled-components/native";
 
-import { TouchableOpacity, TouchableOpacityProps } from "react-native";
+import { TouchableOpacity } from "react-native";
 
-import { ArrowUpRight, ArrowLeft, IconProps, Icon } from "phosphor-react-native";
+import { ArrowLeft, ArrowUpRight } from "phosphor-react-native";
 
-export type ColorPropsButton = {
-  type?: boolean | "default";
-}
+
+export type ColorPropsButton =  {
+  type: boolean | "default" ;
+}  
 
 export const Container = styled(TouchableOpacity)`
   height: 24px;
@@ -16,16 +17,13 @@ export const Container = styled(TouchableOpacity)`
 `;
 
 export const NextIcon = styled(ArrowUpRight).attrs<ColorPropsButton>(({ theme, type }) => ({
-  size: 24,
-  color: type ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK
-}))`
-`;
+  color: typeof(type) === "string" ? theme.COLORS.GRAY_200 : ( type ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK),
+  size: 24
+}))<ColorPropsButton>``;
 
-export const BackIcon = styled(ArrowLeft).attrs<ColorPropsButton>(({ theme, type }) =>  typeof(type) === "string" ? ({
-  size: 24,
-  color: theme.COLORS.GRAY_200
-}) : ({
-  size: 24,
-  color: type ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK
-}))`
-`;
+export const BackIcon = styled(ArrowLeft).attrs<ColorPropsButton>(({ theme, type }) => ({
+  color: typeof(type) === "string" ? theme.COLORS.GRAY_200 : ( type ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK),
+  size: 24
+}))<ColorPropsButton>``;
+
+

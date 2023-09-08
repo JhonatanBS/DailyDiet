@@ -10,7 +10,6 @@ type Props = TouchableOpacityProps & {
 
 export function ButtonDone({ option, title, backgroundOption, ...rest}: Props) {
 
-
   return(
     <Container backgroundOption={backgroundOption} option={option} {...rest}>
       <Circle 

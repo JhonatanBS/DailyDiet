@@ -6,12 +6,35 @@ import dietIsDone from "@assets/dietIsDone.png";
 
 import { ButtonAdd } from "@components/ButtonAdd";
 
+import { useRoute , useNavigation} from "@react-navigation/native";
+
+interface PropsMeal {
+  name: string;
+  description: string;
+  data: string;
+  hour: string;
+  done: boolean;
+}
+
 export function Feedback() {
-  const [done, setDOne] = useState(true);
+ 
+  const navigation = useNavigation();
+  const route = useRoute();
+
+  const { name, description, data, hour, done } = route.params as PropsMeal;
+
+  const isDone = done;
+  console.log("teste:\n", name, description, data, hour, done);
+
+
+
+  function handleNewNavigate() {
+    navigation.navigate("home", {name, description, data, hour, done});
+  }
 
   return(
     <Container>
-      {done ? (
+      {isDone ? (
       <>
         <MessageMain done>
           Continue assim!
@@ -45,6 +68,7 @@ export function Feedback() {
         <ButtonAdd 
           title="Ir para a pagina inicial"
           AddMeal={false}
+          newNavigation={handleNewNavigate}
         />
       </ContainerButton>
     </Container>

@@ -2,13 +2,24 @@ import { ButtonIcon } from "@components/ButtonIcon"
 import { Container, Percent, Data, TextStatistics, ContainerStatistics, SmallContainer, CounterMeal } from "./styles"
 import { HighLight } from "@components/HighLight"
 import { ContainerIcon } from "@screens/Home/styles"
+import { useNavigation, useRoute } from "@react-navigation/native"
 
 export function Statistics() {
+  const navigation = useNavigation();
+
+  const router = useRoute();
+
+  console.log()
+
+  function handleNewNavigation() {
+    navigation.goBack();
+  }
+
   return (
     <Container>
       <Percent>
         <ContainerIcon type="LEFT">
-          <ButtonIcon alterIcon={false} />
+          <ButtonIcon alterIcon={false} type={true} NewNavegition={handleNewNavigation}/>
         </ContainerIcon>
         <HighLight
           title="90,86%"

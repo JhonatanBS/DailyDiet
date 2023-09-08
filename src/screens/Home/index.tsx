@@ -16,43 +16,60 @@ import { ButtonAdd } from "@components/ButtonAdd";
 import { ButtonMeal } from "@components/ButtonMeal";
 import theme from "@theme/index";
 
-import { typeColorStyleMeal } from "@components/ButtonMeal/styles";
 
-type PropsMeal = {
-  time: string;
-  description: string;
-  done: typeColorStyleMeal;
+import { useNavigation, useRoute } from "@react-navigation/native";
+
+export type PropsMeal = {
+  name: string;
+  description?: string;
+  hour: string;
+  done: boolean;
 }
 
-interface IMeal {
+interface PropsNewMeal {
+  name: string;
+  description: string;
+  data: string;
+  hour: string;
+  done: boolean;
+}
+
+export interface IMeal {
   title: string;
   data: PropsMeal[]
 }
 
 export function Home() {
+  const navigation = useNavigation();
+  const router = useRoute();
+
   const [ meals, setMeals ] = useState<IMeal[]>([
     {
       title: '12.08.22',
       data: [
         {
-          time: "22:00",
+          name: "Sanduiche",
           description: "Sanduiche",
-          done: "isDone"
+          hour: "22:00",
+          done: true
         },
         {
-          time: "22:01",
-          description: "Pizza",
-          done: "isDone"
-        },
-        {
-          time: "22:10",
+          name: "Pizza",
           description: "Sanduiche",
-          done: "isDone"
+          hour: "22:01",
+          done: true
         },
         {
-          time: "22:15",
-          description: "Pizza",
-          done: "isDone"
+          name: "Sanduiche",
+          description: "Sanduiche",
+          hour: "22:10",
+          done: true
+        },
+        {
+          name: "Pizza",
+          description: "Sanduiche",
+          hour: "22:15",
+          done: true
         },
       ],
     },
@@ -60,35 +77,61 @@ export function Home() {
       title: '12.08.22',
       data: [
         {
-          time: "22:00",
+          name: "Sanduiche",
           description: "Sanduiche",
-          done: "notDone"
+          hour: "22:00",
+          done: false
         },
         {
-          time: "22:01",
-          description: "Pizza",
-          done: "notDone"
-        },
-        {
-          time: "22:11",
+          name: "Pizza",
           description: "Sanduiche",
-          done: "notDone"
+          hour: "22:01",
+          done: false
         },
         {
-          time: "05:01",
-          description: "Pizza",
-          done: "notDone"
+          name: "Sanduiche",
+          description: "Sanduiche",
+          hour: "22:11",
+          done: false
+        },
+        {
+          name: "Pizza",
+          description: "Sanduiche",
+          hour: "05:01",
+          done: false
         },
       ],
     },
-  ]);
+  ]); 
+
+  function handleNewMeal() {
+    if(router.params === undefined) {
+      return;
+    }
+
+    const { name, description, data, hour, done} = router.params as PropsNewMeal;
+    const meal: IMeal = {
+      title: data,
+      data: []
+    }
+  }
+
+  
+  function handleNavigateStatistics() {
+    navigation.navigate("statistics", meals);
+  }
+
+  function handleNavigateNewMeal() {
+    navigation.navigate("newMeal");
+  }
+  
 
   return (
     <Container>
       <Header />
       <ShowPercentage>
         <ContainerIcon type="RIGHT">
-          <ButtonIcon alterIcon={true}/>
+          <ButtonIcon alterIcon={true} NewNavegition={handleNavigateStatistics} type/>
         </ContainerIcon>
 
         <HighLight
@@ -102,6 +145,7 @@ export function Home() {
         <ButtonAdd 
           title="Nova Refeição"
           AddMeal={true}
+          newNavigation={handleNavigateNewMeal}
         />
       </ContainerAddButton>
 
@@ -109,9 +153,9 @@ export function Home() {
 
       <SectionList 
         sections={meals}
-        keyExtractor={(item) => item.time}
+        keyExtractor={(item) => item.hour}
         renderItem={({item}) => (
-          <ButtonMeal date={item.time} meal={item.description} done={item.done}          
+          <ButtonMeal date={item.hour} meal={item.name} done={item.done}          
           />
         )}
         renderSectionHeader={({section: {title}}) => (
@@ -124,7 +168,7 @@ export function Home() {
               marginTop: 25
               }
             }>
-            {title}
+            { title }
           </Text>
         )}
         showsVerticalScrollIndicator={false}

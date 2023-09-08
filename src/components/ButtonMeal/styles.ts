@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components/native";
 
-export type typeColorStyleMeal = "isDone" | "notDone";
+
 
 export type Props = {
-  type?: typeColorStyleMeal;
+  type?: boolean;
 }
 
 export const Container = styled.TouchableOpacity`
@@ -50,6 +50,6 @@ export const CircleColorMeal = styled.View<Props>`
 
   border-radius: 20px;
 
-  background-color: ${({theme, type }) => (type === "isDone") ? theme.COLORS.GREEN_MID : theme.COLORS.RED_MID};
+  background-color: ${({theme, type }) => type  ? theme.COLORS.GREEN_MID : theme.COLORS.RED_MID};
 
 `;

@@ -1,17 +1,16 @@
-import { BackIcon, ColorPropsButton, Container, NextIcon } from "./styles";
-
-import theme from "@theme/index";
+import { BackIcon, Container, NextIcon } from "./styles";
 
 interface Props {
   alterIcon?: boolean;
-  type?: ColorPropsButton
+  type?: boolean | "default"
+  NewNavegition: () => void;
 }
 
-export function ButtonIcon({alterIcon = true}: Props, { type = "default" } : ColorPropsButton) {
+export function ButtonIcon({ alterIcon = true, type="default", NewNavegition }: Props) {
   return(
-    <Container >
+    <Container onPress={NewNavegition}>
       { alterIcon ?
-        <NextIcon type={type} />:
+        <NextIcon type={type}/>:
         <BackIcon type={type}/>
       }
     </Container>

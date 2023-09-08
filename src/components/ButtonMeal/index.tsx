@@ -1,9 +1,9 @@
-import { Container, CircleColorMeal, DataDescription, MealDescription, typeColorStyleMeal } from "./styles";
+import { Container, CircleColorMeal, DataDescription, MealDescription } from "./styles";
 
 type Props = {
   date: string;
   meal: string;
-  done: typeColorStyleMeal
+  done: boolean
 }
 
 export function ButtonMeal({ date, meal, done }: Props) {

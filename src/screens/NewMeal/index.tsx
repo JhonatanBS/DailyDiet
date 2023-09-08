@@ -1,18 +1,34 @@
 import { useState } from "react";
 
-import { Container, ContainerButton, ContainerDoneOption, ContainerIcon, ContainerMeal, RegisterMeal, TextMeal } from "./styles";
+import { Container, ContainerButton, ContainerDoneOption, ContainerForm, ContainerIcon, ContainerInput, ContainerMeal, InputDescription, InputName, MiniContainerInput, RegisterMeal, TextInputName, TextMeal, TimeInput } from "./styles";
 
 import { ButtonIcon } from "@components/ButtonIcon";
-import { Form } from "@components/Form";
 import { ButtonDone } from "@components/ButtonDone";
 import { ButtonAdd } from "@components/ButtonAdd";
+import { useNavigation } from "@react-navigation/native";
 
 export function NewMeal() {
 
+  const navigation = useNavigation();
+
   const [ backgroundOption, setBackgroundOption] = useState(false);
+
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [data, setData] = useState("");
+  const [hour, setHour] = useState("");
+  const [done, setDone] = useState(true);
 
   function handleAlterColorBackground(value: boolean) {
      setBackgroundOption(!value)
+  }
+
+  function handleGoBack() {
+    navigation.goBack();
+  }
+
+  function handleNewNavigation() {
+    navigation.navigate("feedback", {name, description, data, hour, done: backgroundOption});
   }
 
   return(
@@ -22,6 +38,8 @@ export function NewMeal() {
         <ContainerIcon>
           <ButtonIcon 
             alterIcon={false}
+            type="default"
+            NewNavegition={handleGoBack}
           />
         </ContainerIcon>
 
@@ -32,7 +50,42 @@ export function NewMeal() {
       </ContainerMeal>
 
       <RegisterMeal>
-        <Form />
+      <ContainerForm>
+      <TextInputName >
+        Nome
+      </TextInputName>
+
+      <InputName onChangeText={(text) => setName(text)}/>
+
+      <TextInputName>
+        Descrição
+      </TextInputName>
+
+      <InputDescription onChangeText={(text) => setDescription(text)}/>
+
+      <ContainerInput>
+        <MiniContainerInput>
+          <TextInputName>
+            Data
+          </TextInputName>
+
+          <TimeInput onChangeText={(text) => setData(text)}/>
+        </MiniContainerInput>
+
+        <MiniContainerInput>
+          <TextInputName>
+            Hora
+          </TextInputName>
+
+          <TimeInput onChangeText={(text) => setHour(text)}/>
+        </MiniContainerInput>
+
+      </ContainerInput>
+
+      <TextInputName>
+          Está dentro da dieta ?
+      </TextInputName>
+    </ContainerForm>
 
       <ContainerDoneOption>
        <ButtonDone 
@@ -53,6 +106,7 @@ export function NewMeal() {
       <ButtonAdd 
         title="Cadastrar refeição"
         AddMeal={false}
+        newNavigation={handleNewNavigation}
       />
       </ContainerButton>
       </RegisterMeal>

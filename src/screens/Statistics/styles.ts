@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components/native";
 
+import { SafeAreaView } from "react-native-safe-area-context";
+
 import { directionIconProps } from "@screens/Home/styles";
 
 type Props = {
@@ -10,17 +12,18 @@ type ColorProps = {
   typeMeal: boolean;
 }
 
-export const Container = styled.View`
+export const Container = styled(SafeAreaView)`
   flex: 1;
   background-color: ${({theme}) => theme.COLORS.GREEN_LIGHT};
 `;
 
 export const Percent = styled.View`
   width: 100%;
-  height: 150px;
+  height: 100px;
   background-color: ${({theme}) => theme.COLORS.GREEN_LIGHT};
 
-  padding: 0 24px;
+  padding: 0 10px;
+  margin-bottom: 30px;
 
   justify-content: center;
   align-items: center;
