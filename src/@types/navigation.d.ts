@@ -6,7 +6,7 @@ export declare global {
       home: {
         name: string;
         description: string;
-        data: string;
+        date: string;
         hour: string;
         done: boolean;
       },
@@ -15,7 +15,7 @@ export declare global {
       feedback: {
         name: string;
         description: string;
-        data: string;
+        date: string;
         hour: string;
         done: boolean;
       }

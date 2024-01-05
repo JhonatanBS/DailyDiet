@@ -17,7 +17,6 @@ export const ContainerMeal = styled.View`
   flex-direction: row;
 
   padding: 24px 24px;
-
 `;
 
 export const ContainerIcon = styled.View`
@@ -43,6 +42,7 @@ export const ContainerForm = styled.View`
   width: 100%;
 
   padding-top: 35px;
+
 `;
 
 export const TextInputName = styled.Text`
@@ -69,7 +69,7 @@ export const InputName = styled.TextInput`
   color: ${({theme}) => theme.COLORS.GRAY_100};
 `;
 
-export const InputDescription = styled.TextInput`
+export const ContainerDescription = styled.View`
   width: 100%;
   height: 120px;
 
@@ -81,11 +81,14 @@ export const InputDescription = styled.TextInput`
 
   margin-bottom: 20px;
 
+`;
+
+export const InputDescription = styled.TextInput`
   color: ${({theme}) => theme.COLORS.GRAY_100};
 `;
 
-export const TimeInput = styled.TextInput`
-  width: 153px;
+export const TimeInput = styled.Pressable`
+  width: 100%;
   height: 48px;
 
   border-width: 1px;
@@ -95,7 +98,16 @@ export const TimeInput = styled.TextInput`
   padding: 14px;
 
   color: ${({theme}) => theme.COLORS.GRAY_100};
+`;
 
+export const TextButtonDate = styled.Text`
+  ${({theme}) => css`
+      font-size: ${theme.FONT_SIZE.MD}px;
+      color: ${theme.COLORS.GRAY_100};
+      font-family: ${theme.FONT_FAMILY.REGULAR};
+      margin-bottom: 5px;
+      height: 48px;
+    `}
 `;
 
 export const ContainerInput = styled.View`
@@ -110,7 +122,7 @@ export const ContainerInput = styled.View`
 `;
 
 export const MiniContainerInput = styled.View`
-  width: 153px;
+  width: 47%;
   height: 100%;
 `;
 
@@ -131,6 +143,7 @@ export const ContainerDoneOption = styled.View`
   flex-direction: row;
 
   justify-content: space-between;
+
 `;
 
 export const ContainerButton = styled.View`
@@ -138,5 +151,6 @@ export const ContainerButton = styled.View`
   justify-content: flex-end; 
 
   padding: 20px 0;
+
 `;
 

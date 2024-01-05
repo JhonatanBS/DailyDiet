@@ -11,7 +11,7 @@ import { useRoute , useNavigation} from "@react-navigation/native";
 interface PropsMeal {
   name: string;
   description: string;
-  data: string;
+  date: string;
   hour: string;
   done: boolean;
 }
@@ -21,15 +21,15 @@ export function Feedback() {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const { name, description, data, hour, done } = route.params as PropsMeal;
+  const { name, description, date, hour, done } = route.params as PropsMeal;
 
   const isDone = done;
-  console.log("teste:\n", name, description, data, hour, done);
+  console.log("teste:\n", name, description, date, hour, done);
 
 
 
   function handleNewNavigate() {
-    navigation.navigate("home", {name, description, data, hour, done});
+    navigation.navigate("home", {name, description, date, hour, done});
   }
 
   return(

@@ -1,11 +1,33 @@
 import { useState } from "react";
 
-import { Container, ContainerButton, ContainerDoneOption, ContainerForm, ContainerIcon, ContainerInput, ContainerMeal, InputDescription, InputName, MiniContainerInput, RegisterMeal, TextInputName, TextMeal, TimeInput } from "./styles";
+import { 
+  Container, 
+  ContainerButton, 
+  ContainerDescription, 
+  ContainerDoneOption, 
+  ContainerForm, 
+  ContainerIcon, 
+  ContainerInput, 
+  ContainerMeal, 
+  InputDescription, 
+  InputName, 
+  MiniContainerInput, 
+  RegisterMeal, 
+  TextButtonDate, 
+  TextInputName, 
+  TextMeal, 
+  TimeInput 
+} from "./styles";
+
+import { useNavigation } from "@react-navigation/native";
+
+import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 
 import { ButtonIcon } from "@components/ButtonIcon";
 import { ButtonDone } from "@components/ButtonDone";
 import { ButtonAdd } from "@components/ButtonAdd";
-import { useNavigation } from "@react-navigation/native";
+
+type modeProps = "date" | "time";
 
 export function NewMeal() {
 
@@ -15,9 +37,15 @@ export function NewMeal() {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [data, setData] = useState("");
-  const [hour, setHour] = useState("");
-  const [done, setDone] = useState(true);
+
+  const [newDate, setNewDate] = useState<Date>(new Date());
+  const [mode, setMode] = useState<modeProps>();
+  const [show, setShow] = useState(false);
+
+  let date = dateSet();
+  let hour = timeSet();
+
+  console.log(backgroundOption)
 
   function handleAlterColorBackground(value: boolean) {
      setBackgroundOption(!value)
@@ -28,7 +56,43 @@ export function NewMeal() {
   }
 
   function handleNewNavigation() {
-    navigation.navigate("feedback", {name, description, data, hour, done: backgroundOption});
+    navigation.navigate("feedback", {name, description, date, hour, done: backgroundOption});
+  }
+
+  {/* Date Picker*/}
+
+  const onChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
+    const currentDate = selectedDate;
+    setShow(false);
+    setNewDate(currentDate as Date);
+  };
+
+  const showMode = (currentMode: modeProps) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
+  };
+
+  const showTimepicker = () => {
+    showMode('time');
+  };
+
+  function dateSet() {
+    const day = String(newDate.getDate()).padStart(2, "0");
+    const month = String(newDate.getMonth() + 1).padStart(2, "0");
+    const year = newDate.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  }
+
+  function timeSet() {
+    const hour = String(newDate.getHours()).padStart(2, "0");
+    const minutes = String(newDate.getMinutes()).padStart(2, "0");
+
+    return `${hour}:${minutes}`;
   }
 
   return(
@@ -55,13 +119,20 @@ export function NewMeal() {
         Nome
       </TextInputName>
 
-      <InputName onChangeText={(text) => setName(text)}/>
-
+      <InputName 
+        onChangeText={(text) => setName(text)}
+      />
       <TextInputName>
         Descrição
       </TextInputName>
 
-      <InputDescription onChangeText={(text) => setDescription(text)}/>
+      <ContainerDescription>
+
+      <InputDescription 
+        onChangeText={(text) => setDescription(text)}
+        multiline
+      />
+      </ContainerDescription>
 
       <ContainerInput>
         <MiniContainerInput>
@@ -69,7 +140,13 @@ export function NewMeal() {
             Data
           </TextInputName>
 
-          <TimeInput onChangeText={(text) => setData(text)}/>
+          
+          <TimeInput onPress={showDatepicker}>
+            <TextButtonDate>
+              {date}
+            </TextButtonDate>
+          </TimeInput>
+
         </MiniContainerInput>
 
         <MiniContainerInput>
@@ -77,7 +154,21 @@ export function NewMeal() {
             Hora
           </TextInputName>
 
-          <TimeInput onChangeText={(text) => setHour(text)}/>
+          <TimeInput onPress={showTimepicker}>
+            <TextButtonDate>
+              {hour}
+            </TextButtonDate>
+          </TimeInput>
+
+          {show && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={newDate}
+          mode={mode}
+          is24Hour={true}
+          onChange={onChange}
+        />
+      )}
         </MiniContainerInput>
 
       </ContainerInput>
@@ -92,13 +183,13 @@ export function NewMeal() {
         title="Sim" 
         option
         backgroundOption={backgroundOption}
-        onPress={() => handleAlterColorBackground(backgroundOption)}
+        onPress={() => !backgroundOption && handleAlterColorBackground(backgroundOption)}
        />
        <ButtonDone 
         title="Não" 
         option={false}
         backgroundOption={!backgroundOption}
-        onPress={() => handleAlterColorBackground(backgroundOption)}
+        onPress={() => backgroundOption && handleAlterColorBackground(backgroundOption)}
        />
       </ContainerDoneOption>
       
