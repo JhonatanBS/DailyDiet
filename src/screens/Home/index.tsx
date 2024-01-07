@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState, useCallback} from "react";
 
 import { Container, 
          ContainerAddButton, 
@@ -7,7 +7,9 @@ import { Container,
          ContainerList
        } from "./styles";
 
-import { SectionList, Text } from "react-native";
+import { SectionList, Text, ActivityIndicator } from "react-native";
+
+import { userDTO } from "@dtos/userDTO";
 
 import { Header } from "@components/Header";
 import { HighLight } from "@components/HighLight";
@@ -16,22 +18,13 @@ import { ButtonAdd } from "@components/ButtonAdd";
 import { ButtonMeal } from "@components/ButtonMeal";
 import theme from "@theme/index";
 
-
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute , useFocusEffect } from "@react-navigation/native";
 
 export type PropsMeal = {
   name: string;
   description?: string;
   hour: string;
-  done: boolean;
-}
-
-interface PropsNewMeal {
-  name: string;
-  description: string;
-  data: string;
-  hour: string;
-  done: boolean;
+  done: boolean; 
 }
 
 export interface IMeal {
@@ -41,91 +34,68 @@ export interface IMeal {
 
 export function Home() {
   const navigation = useNavigation();
-  const router = useRoute();
+  const  { params } = useRoute();
 
-  const [ meals, setMeals ] = useState<IMeal[]>([
-    {
-      title: '12.08.22',
-      data: [
-        {
-          name: "Sanduiche",
-          description: "Sanduiche",
-          hour: "22:00",
-          done: true
-        },
-        {
-          name: "Pizza",
-          description: "Sanduiche",
-          hour: "22:01",
-          done: true
-        },
-        {
-          name: "Sanduiche",
-          description: "Sanduiche",
-          hour: "22:10",
-          done: true
-        },
-        {
-          name: "Pizza",
-          description: "Sanduiche",
-          hour: "22:15",
-          done: true
-        },
-      ],
-    },
-    {
-      title: '12.08.22',
-      data: [
-        {
-          name: "Sanduiche",
-          description: "Sanduiche",
-          hour: "22:00",
-          done: false
-        },
-        {
-          name: "Pizza",
-          description: "Sanduiche",
-          hour: "22:01",
-          done: false
-        },
-        {
-          name: "Sanduiche",
-          description: "Sanduiche",
-          hour: "22:11",
-          done: false
-        },
-        {
-          name: "Pizza",
-          description: "Sanduiche",
-          hour: "05:01",
-          done: false
-        },
-      ],
-    },
-  ]); 
+  const [ meals, setMeals ] = useState<IMeal[]>([]);
+  const [isLoading, setIsLoading] = useState(false); 
 
   function handleNewMeal() {
-    if(router.params === undefined) {
-      return;
-    }
+    try {
+      setIsLoading(true);
+      
+      if(!params) { 
+        return meals;
+      }else{
 
-    const { name, description, data, hour, done} = router.params as PropsNewMeal;
-    const meal: IMeal = {
-      title: data,
-      data: []
+      const { name, description, date, hour, done } = params as userDTO;
+      let counter = 0;
+
+      const newMeal = meals.map((meal) => {
+        if(meal.title === date) {
+          const auxMeal = [...meal.data, {name, description, hour, done}];
+          meal.data = auxMeal;
+          counter = 1;
+        }
+   
+        return meal;
+      });
+  
+      if(counter === 1) {
+        //setMeals([...newMeal]);
+        return newMeal;
+      }else{
+        const meal: IMeal = {
+          title: date,
+          data: [{
+            name,
+            description,
+            hour,
+            done
+          }]
+        };
+       //setMeals([...meals, meal]); 
+       return [...meals, meal];
     }
   }
+    } catch (error) {
+      throw error;
+    } finally {
+      setIsLoading(false);
+    } 
+  }
 
-  
   function handleNavigateStatistics() {
     navigation.navigate("statistics", meals);
   }
 
   function handleNavigateNewMeal() {
-    navigation.navigate("newMeal");
+    navigation.navigate("newMeal");  
   }
-  
 
+  useFocusEffect(useCallback(() => {
+    setMeals(handleNewMeal()); 
+  },[])); 
+ 
   return (
     <Container>
       <Header />
@@ -149,30 +119,41 @@ export function Home() {
         />
       </ContainerAddButton>
 
-      <ContainerList>
+      <ContainerList> 
 
-      <SectionList 
+      { 
+        isLoading
+        ? 
+        <ActivityIndicator 
+          size="large"
+          color="#190d0d"
+          style={{flex: 1, justifyContent: "center"}}
+        />
+        : 
+        <SectionList 
         sections={meals}
-        keyExtractor={(item) => item.hour}
+        keyExtractor={(item, index) => index.toString()}
+        
         renderItem={({item}) => (
           <ButtonMeal date={item.hour} meal={item.name} done={item.done}          
-          />
+          />  
         )}
         renderSectionHeader={({section: {title}}) => (
           <Text 
             style={
               {
               color: theme.COLORS.GRAY_100, 
-              fontFamily: theme.FONT_FAMILY.BOLD,
+              fontFamily: theme.FONT_FAMILY.BOLD, 
               fontSize: theme.FONT_SIZE.LG,
               marginTop: 25
               }
             }>
-            { title }
+            { title.replace(/\//g,".") }
           </Text>
         )}
         showsVerticalScrollIndicator={false}
       />
+      }
       </ContainerList>
     </Container>
   )

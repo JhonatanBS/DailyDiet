@@ -45,8 +45,6 @@ export function NewMeal() {
   let date = dateSet();
   let hour = timeSet();
 
-  console.log(backgroundOption)
-
   function handleAlterColorBackground(value: boolean) {
      setBackgroundOption(!value)
   }
@@ -56,7 +54,7 @@ export function NewMeal() {
   }
 
   function handleNewNavigation() {
-    navigation.navigate("feedback", {name, description, date, hour, done: backgroundOption});
+    navigation.navigate("feedback", { name, description, date, hour, done: backgroundOption});
   }
 
   {/* Date Picker*/}

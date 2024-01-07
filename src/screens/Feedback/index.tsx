@@ -4,29 +4,19 @@ import { Container, MessageMain, MessageDescription, MessageDescriptionBold, Ico
 import dietDone from "@assets/dietDone.png";
 import dietIsDone from "@assets/dietIsDone.png";
 
+import { userDTO } from "@dtos/userDTO";
+
 import { ButtonAdd } from "@components/ButtonAdd";
 
 import { useRoute , useNavigation} from "@react-navigation/native";
 
-interface PropsMeal {
-  name: string;
-  description: string;
-  date: string;
-  hour: string;
-  done: boolean;
-}
-
 export function Feedback() {
  
   const navigation = useNavigation();
-  const route = useRoute();
+  const { params } = useRoute();
 
-  const { name, description, date, hour, done } = route.params as PropsMeal;
-
+  const { name, description, date, hour, done } = params as userDTO;
   const isDone = done;
-  console.log("teste:\n", name, description, date, hour, done);
-
-
 
   function handleNewNavigate() {
     navigation.navigate("home", {name, description, date, hour, done});
