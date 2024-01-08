@@ -1,4 +1,4 @@
-export interface userDTO {
+export interface mealDTO {
   name: string;
   description: string;
   date: string;

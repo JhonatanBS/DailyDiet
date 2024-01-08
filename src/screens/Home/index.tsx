@@ -9,7 +9,7 @@ import { Container,
 
 import { SectionList, Text, ActivityIndicator } from "react-native";
 
-import { userDTO } from "@dtos/userDTO";
+import { allMealsDTO } from "@dtos/allMealsDTO";
 
 import { Header } from "@components/Header";
 import { HighLight } from "@components/HighLight";
@@ -19,65 +19,21 @@ import { ButtonMeal } from "@components/ButtonMeal";
 import theme from "@theme/index";
 
 import { useNavigation, useRoute , useFocusEffect } from "@react-navigation/native";
-
-export type PropsMeal = {
-  name: string;
-  description?: string;
-  hour: string;
-  done: boolean; 
-}
-
-export interface IMeal {
-  title: string;
-  data: PropsMeal[]
-}
+import { storageGetMeals } from "@storage/storageGetMeals";
 
 export function Home() {
   const navigation = useNavigation();
-  const  { params } = useRoute();
-
-  const [ meals, setMeals ] = useState<IMeal[]>([]);
+  
+  const [ meals, setMeals ] = useState<allMealsDTO[]>([]);
   const [isLoading, setIsLoading] = useState(false); 
 
-  function handleNewMeal() {
+  async function handleNewMeal() {
     try {
       setIsLoading(true);
+      const allMeals = await storageGetMeals();
+      setMeals(allMeals);
       
-      if(!params) { 
-        return meals;
-      }else{
-
-      const { name, description, date, hour, done } = params as userDTO;
-      let counter = 0;
-
-      const newMeal = meals.map((meal) => {
-        if(meal.title === date) {
-          const auxMeal = [...meal.data, {name, description, hour, done}];
-          meal.data = auxMeal;
-          counter = 1;
-        }
-   
-        return meal;
-      });
-  
-      if(counter === 1) {
-        //setMeals([...newMeal]);
-        return newMeal;
-      }else{
-        const meal: IMeal = {
-          title: date,
-          data: [{
-            name,
-            description,
-            hour,
-            done
-          }]
-        };
-       //setMeals([...meals, meal]); 
-       return [...meals, meal];
-    }
-  }
-    } catch (error) {
+    }catch (error) {
       throw error;
     } finally {
       setIsLoading(false);
@@ -93,7 +49,7 @@ export function Home() {
   }
 
   useFocusEffect(useCallback(() => {
-    setMeals(handleNewMeal()); 
+    handleNewMeal();
   },[])); 
  
   return (
