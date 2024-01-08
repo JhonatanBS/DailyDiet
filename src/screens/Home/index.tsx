@@ -4,7 +4,8 @@ import { Container,
          ContainerAddButton, 
          ContainerIcon, 
          ShowPercentage,
-         ContainerList
+         ContainerList,
+         Description
        } from "./styles";
 
 import { SectionList, Text, ActivityIndicator } from "react-native";
@@ -20,6 +21,7 @@ import theme from "@theme/index";
 
 import { useNavigation, useRoute , useFocusEffect } from "@react-navigation/native";
 import { storageGetMeals } from "@storage/storageGetMeals";
+import { mealDTO } from "@dtos/mealDTO";
 
 export function Home() {
   const navigation = useNavigation();
@@ -68,9 +70,15 @@ export function Home() {
       </ShowPercentage>
 
       <ContainerAddButton>
+
+        <Description>
+          Refeições
+        </Description>
         <ButtonAdd 
           title="Nova Refeição"
-          AddMeal={true}
+          onIcon
+          typeIcon="ADD"
+          onBackground
           newNavigation={handleNavigateNewMeal}
         />
       </ContainerAddButton>
@@ -90,8 +98,13 @@ export function Home() {
         sections={meals}
         keyExtractor={(item, index) => index.toString()}
         
-        renderItem={({item}) => (
-          <ButtonMeal date={item.hour} meal={item.name} done={item.done}          
+        renderItem={({item, section}) => (
+          <ButtonMeal 
+            name={item.name}
+            description={item.description}
+            date={section.title}
+            hour={item.hour}
+            done={item.done}
           />  
         )}
         renderSectionHeader={({section: {title}}) => (

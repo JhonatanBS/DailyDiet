@@ -93,7 +93,7 @@ export function NewMeal() {
     return `${hour}:${minutes}`;
   }
 
-  
+
 
   return(
     <Container>
@@ -196,7 +196,8 @@ export function NewMeal() {
       <ContainerButton>
       <ButtonAdd 
         title="Cadastrar refeição"
-        AddMeal={false}
+        onBackground
+        onIcon={false}
         newNavigation={handleNewNavigation}
       />
       </ContainerButton>

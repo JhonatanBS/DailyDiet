@@ -1,3 +1,4 @@
+import { mealDTO } from "@dtos/mealDTO";
 import { IMeal, PropsMeal } from "@screens/Home"
 
 export declare global {
@@ -12,7 +13,8 @@ export declare global {
         date: string;
         hour: string;
         done: boolean;
-      }
+      },
+      showMeal: mealDTO
     }
   }
 }

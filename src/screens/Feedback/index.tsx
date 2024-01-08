@@ -69,7 +69,8 @@ export function Feedback() {
       <ContainerButton>
         <ButtonAdd 
           title="Ir para a pagina inicial"
-          AddMeal={false}
+          onBackground
+          onIcon={false}
           newNavigation={handleNewNavigate}
         />
       </ContainerButton>
