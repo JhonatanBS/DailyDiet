@@ -16,32 +16,24 @@ export async function storageEditMeal({ nowDate, nowHour }: keyToEditMealProp, {
 	try {
 	  const storageAllMeal = await storageGetMeals();
 
-    let counter = 0;
-
       const newMeal = storageAllMeal.map((meal) => {
-        if(meal.title === date) {
-          const auxMeal = [...meal.data, {name, description, hour, done}];
-          meal.data = auxMeal;
-          counter = 1;
+        if(meal.title === nowDate) {
+          const newData = meal.data.findIndex((data, index) => {
+            if(data.hour === nowHour) {
+              return index;
+            }
+          });
+
+          meal.data.splice(newData, 1, {name, description, hour, done})
         }
    
         return meal;
       });
+
+   const updateMeal = JSON.stringify(newMeal);
+
+   await AsyncStorage.setItem(MEALS_COLLECTION, updateMeal);
   
-      if(counter === 1) {
-				await AsyncStorage.setItem(MEALS_COLLECTION, JSON.stringify(newMeal))
-      }else{
-        const meal: allMealsDTO = {
-          title: date,
-          data: [{
-            name,
-            description,
-            hour,
-            done
-          }]
-        };
-			 await AsyncStorage.setItem(MEALS_COLLECTION, JSON.stringify([...storageAllMeal, meal]))
-    }
 	} catch (error) {
 			throw error;
 	}

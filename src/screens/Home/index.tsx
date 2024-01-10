@@ -120,7 +120,7 @@ export function Home() {
               marginTop: 25
               }
             }>
-            { title.replace(/\//g,".") }
+            { title.replace("/",".").replace("/20", ".") }
           </Text>
         )}
         showsVerticalScrollIndicator={false}
