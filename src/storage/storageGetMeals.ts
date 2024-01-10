@@ -7,6 +7,8 @@ export async function storageGetMeals(): Promise<allMealsDTO[]> {
   try {
     const storage = await AsyncStorage.getItem(MEALS_COLLECTION);
 
+    console.log(storage)
+
     const meals = storage ? JSON.parse(storage) : [];
 
     return meals;

@@ -22,6 +22,8 @@ import theme from "@theme/index";
 import { useNavigation, useRoute , useFocusEffect } from "@react-navigation/native";
 import { storageGetMeals } from "@storage/storageGetMeals";
 import { mealDTO } from "@dtos/mealDTO";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { MEALS_COLLECTION } from "@storage/storageConfig";
 
 export function Home() {
   const navigation = useNavigation();
@@ -31,6 +33,7 @@ export function Home() {
 
   async function handleNewMeal() {
     try {
+      // await AsyncStorage.removeItem(MEALS_COLLECTION);
       setIsLoading(true);
       const allMeals = await storageGetMeals();
       setMeals(allMeals);

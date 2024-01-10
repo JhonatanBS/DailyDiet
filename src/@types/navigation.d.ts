@@ -1,5 +1,5 @@
 import { mealDTO } from "@dtos/mealDTO";
-import { IMeal, PropsMeal } from "@screens/Home"
+import { IMeal } from "@screens/Home"
 
 export declare global {
   namespace ReactNavigation {
@@ -14,7 +14,8 @@ export declare global {
         hour: string;
         done: boolean;
       },
-      showMeal: mealDTO
+      showMeal: mealDTO,
+      editMeal: mealDTO
     }
   }
 }
