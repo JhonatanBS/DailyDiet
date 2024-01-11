@@ -55,18 +55,47 @@ export function Home() {
 
   useFocusEffect(useCallback(() => {
     handleNewMeal();
-  },[])); 
- 
+  },[]));
+
+  function allMeals() {
+    const counterMeals = meals.reduce((accumulator, meal) => accumulator + meal.data.length,0);
+    return counterMeals;
+  }
+
+  function doneMeals() {
+    const counterMeals = meals.reduce((accumulator, meal, index) => {
+      
+      const counterDone = meal.data.reduce((accumulatorDone, mealDone) => mealDone.done === true ? ++accumulatorDone : 0,0)
+      
+
+      return counterDone + accumulator;
+  },0)
+    return counterMeals;
+}
+
+  function counterPercentage() {
+    const percentage = (doneMeals() / allMeals()) * 100;
+
+    return percentage;
+  }
+
+  console.log(allMeals(), doneMeals())
   return (
     <Container>
       <Header />
-      <ShowPercentage>
+      <ShowPercentage
+        type={ counterPercentage() >= 50.00 ? true : false}
+      >
         <ContainerIcon type="RIGHT">
-          <ButtonIcon alterIcon={true} NewNavegition={handleNavigateStatistics} type/>
+          <ButtonIcon 
+            alterIcon={true} 
+            NewNavegition={handleNavigateStatistics} 
+            type={counterPercentage() >= 50.00 ? true : false}
+          />
         </ContainerIcon>
 
         <HighLight
-          title="90,86%"
+          title={`${counterPercentage().toFixed(2).toString().replace(".", ",")}%`}
           subtitle="das refeições dentro da dieta"
           size="XXL"
         />

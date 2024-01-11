@@ -17,7 +17,7 @@ export const Container = styled(TouchableOpacity)`
 `;
 
 export const NextIcon = styled(ArrowUpRight).attrs<ColorPropsButton>(({ theme, type }) => ({
-  color: typeof(type) === "string" ? theme.COLORS.GRAY_200 : ( type ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK),
+  color: type ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK,
   size: 24
 }))<ColorPropsButton>``;
 

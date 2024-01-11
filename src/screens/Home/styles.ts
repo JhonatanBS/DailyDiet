@@ -8,6 +8,10 @@ type Props = {
   type: directionIconProps;
 }
 
+type numberCounterPercentage = {
+  type: boolean;
+}
+
 export const Container = styled(SafeAreaView)`
   flex: 1;
 
@@ -16,10 +20,10 @@ export const Container = styled(SafeAreaView)`
   padding: 0 24px;
 `;
 
-export const ShowPercentage = styled.View`
+export const ShowPercentage = styled.View<numberCounterPercentage>`
   height: 102px;
   
-  background-color: ${({theme}) => theme.COLORS.GREEN_LIGHT};
+  background-color: ${({theme, type }) => type ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT};
 
   border-radius: 8px;
 
