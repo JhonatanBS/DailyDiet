@@ -1,11 +1,11 @@
 import { mealDTO } from "@dtos/mealDTO";
-import { IMeal } from "@screens/Home"
+import { IMeal, statisticsMeal } from "@screens/Home"
 
 export declare global {
   namespace ReactNavigation {
     interface RootParamList {
       home: undefined,
-      statistics: IMeal[],
+      statistics: statisticsMeal,
       newMeal: undefined,
       feedback: {
         name: string;

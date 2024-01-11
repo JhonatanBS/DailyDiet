@@ -12,15 +12,16 @@ type ColorProps = {
   typeMeal: boolean;
 }
 
-export const Container = styled(SafeAreaView)`
+export const Container = styled(SafeAreaView)<ColorProps>`
   flex: 1;
-  background-color: ${({theme}) => theme.COLORS.GREEN_LIGHT};
+  background-color: ${({theme, typeMeal}) => typeMeal ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT};
+
 `;
 
-export const Percent = styled.View`
+export const Percent = styled.View<ColorProps>`
   width: 100%;
   height: 100px;
-  background-color: ${({theme}) => theme.COLORS.GREEN_LIGHT};
+  background-color: ${({theme, typeMeal}) => typeMeal ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT};
 
   padding: 0 10px;
   margin-bottom: 30px;

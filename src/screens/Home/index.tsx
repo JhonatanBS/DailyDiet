@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback} from "react";
+import { useState, useCallback} from "react";
 
 import { Container, 
          ContainerAddButton, 
@@ -19,11 +19,16 @@ import { ButtonAdd } from "@components/ButtonAdd";
 import { ButtonMeal } from "@components/ButtonMeal";
 import theme from "@theme/index";
 
-import { useNavigation, useRoute , useFocusEffect } from "@react-navigation/native";
+import { useNavigation , useFocusEffect } from "@react-navigation/native";
 import { storageGetMeals } from "@storage/storageGetMeals";
-import { mealDTO } from "@dtos/mealDTO";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { MEALS_COLLECTION } from "@storage/storageConfig";
+
+export interface statisticsMeal {
+  percentage: number;
+  betterSequenceMeal: number;
+  totalMeals: number;
+  isDoneMeals: number;
+  isNotDoneMeals: number;
+}
 
 export function Home() {
   const navigation = useNavigation();
@@ -31,9 +36,10 @@ export function Home() {
   const [ meals, setMeals ] = useState<allMealsDTO[]>([]);
   const [isLoading, setIsLoading] = useState(false); 
 
+  console.log(meals)
+
   async function handleNewMeal() {
     try {
-      // await AsyncStorage.removeItem(MEALS_COLLECTION);
       setIsLoading(true);
       const allMeals = await storageGetMeals();
       setMeals(allMeals);
@@ -46,7 +52,15 @@ export function Home() {
   }
 
   function handleNavigateStatistics() {
-    navigation.navigate("statistics", meals);
+    navigation.navigate("statistics", 
+    {
+      percentage: counterPercentage(),
+      betterSequenceMeal: betterSequenceMealDone(),
+      totalMeals: allMeals(),
+      isDoneMeals: doneMeals(),
+      isNotDoneMeals: notDoneMeals()
+    }
+    );
   }
 
   function handleNavigateNewMeal() {
@@ -63,15 +77,27 @@ export function Home() {
   }
 
   function doneMeals() {
-    const counterMeals = meals.reduce((accumulator, meal, index) => {
-      
+    const counterMeals = meals.reduce((accumulator, meal) => {
       const counterDone = meal.data.reduce((accumulatorDone, mealDone) => mealDone.done === true ? ++accumulatorDone : 0,0)
-      
-
-      return counterDone + accumulator;
+        return counterDone + accumulator;
   },0)
     return counterMeals;
-}
+  }
+
+  function notDoneMeals() {
+    const counterMeals = meals.reduce((accumulator, meal) => {
+      const counterDone = meal.data.reduce((accumulatorDone, mealDone) => {
+        if(mealDone.done === false) {
+          accumulatorDone = accumulatorDone + 1;
+        }
+        
+        return accumulatorDone;
+      },0)
+        accumulator = accumulator + counterDone;
+        return accumulator;
+  },0)
+    return counterMeals;
+  }
 
   function counterPercentage() {
     const percentage = (doneMeals() / allMeals()) * 100;
@@ -79,7 +105,26 @@ export function Home() {
     return percentage;
   }
 
-  console.log(allMeals(), doneMeals())
+  function betterSequenceMealDone() {
+    let counter = 0;
+
+    const betterMeals = meals.reduce((accumulator, meal) => {
+      let counterBetterMeal = meal.data.reduce((accumulator, meal) => {
+        if(meal.done === true) ++accumulator;
+        return accumulator;
+      }, 0);
+
+      if(counterBetterMeal > counter) {
+        counter = counterBetterMeal;
+      }
+
+      return counter;
+
+    }, 0);
+
+    return counter;
+  }
+
   return (
     <Container>
       <Header />

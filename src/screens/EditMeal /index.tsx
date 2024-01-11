@@ -48,8 +48,6 @@ export function EditMeal() {
   const [mode, setMode] = useState<modeProps>();
   const [show, setShow] = useState(false);
 
-  console.log(newName, newDescription, newHour, newDone)
-
   function handleAlterColorBackground(value: boolean) {
     setNewDone(!value)
   }

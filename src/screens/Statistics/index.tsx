@@ -3,26 +3,36 @@ import { Container, Percent, Data, TextStatistics, ContainerStatistics, SmallCon
 import { HighLight } from "@components/HighLight"
 import { ContainerIcon } from "@screens/Home/styles"
 import { useNavigation, useRoute } from "@react-navigation/native"
+import { statisticsMeal } from "@screens/Home"
 
 export function Statistics() {
   const navigation = useNavigation();
 
-  const router = useRoute();
+  const { params } = useRoute();
 
-  console.log()
+  const { 
+    isNotDoneMeals, 
+    betterSequenceMeal, 
+    isDoneMeals, 
+    percentage, 
+    totalMeals
+  } = params as statisticsMeal;
 
   function handleNewNavigation() {
     navigation.goBack();
   }
 
   return (
-    <Container>
-      <Percent>
+    <Container typeMeal={ percentage >= 50.00 ? true : false}>
+      <Percent typeMeal={ percentage >= 50.00 ? true : false}>
         <ContainerIcon type="LEFT">
-          <ButtonIcon alterIcon={false} type={true} NewNavegition={handleNewNavigation}/>
+          <ButtonIcon 
+          alterIcon={false} 
+          type={percentage >= 50.00 ? true : false} 
+          NewNavegition={handleNewNavigation}/>
         </ContainerIcon>
         <HighLight
-          title="90,86%"
+          title={`${percentage.toFixed(2).toString().replace(".", ",")}%`}
           subtitle="das refeições dentro da dieta"
           size="XXL"
         />
@@ -35,7 +45,7 @@ export function Statistics() {
 
         <ContainerStatistics>
           <HighLight
-            title="22"
+            title={`${betterSequenceMeal}`}
             subtitle="melhor sequência de pratos dentro da dieta"
             size="XL"
           />
@@ -43,7 +53,7 @@ export function Statistics() {
 
         <ContainerStatistics>
           <HighLight
-            title="109"
+            title={`${totalMeals}`}
             subtitle="refeições registradas"
             size="XL"
           />
@@ -52,7 +62,7 @@ export function Statistics() {
         <CounterMeal>
           <SmallContainer typeMeal>
             <HighLight
-              title="99"
+              title={`${isDoneMeals}`}
               subtitle="refeições dentro da dieta"
               size="XL"
             />
@@ -60,7 +70,7 @@ export function Statistics() {
 
           <SmallContainer typeMeal={false}>
             <HighLight
-              title="10"
+              title={`${isNotDoneMeals}`}
               subtitle="refeições fora da dieta"
               size="XL"
             />
